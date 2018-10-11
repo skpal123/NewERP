@@ -23,7 +23,7 @@ namespace ERPWebApiService.Autentication
         /// <summary>
         /// Information about User Level (Branch User/ Area User/ Zone User)
         /// </summary>
-        public int UserLevel { get; set; }
+        public int? UserLevel { get; set; }
 
         /// <summary>
         /// Information about LevelId (Branch Id/ Area Id/ Zone Id)

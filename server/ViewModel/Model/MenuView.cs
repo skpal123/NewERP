@@ -10,8 +10,9 @@ namespace ViewModel.Model
     {
         public Guid Id { set; get; }
         public string Name { set; get; }
-        public Guid? Module_Id { set; get; }
-        public string ImagePath { set; get; }
         public string RouterPath { set; get; }
+        public string ImagePath { set; get; }
+        public int MenuSqenceId { set; get; }
+        public int ModuleSeqId { set; get; }
     }
 }

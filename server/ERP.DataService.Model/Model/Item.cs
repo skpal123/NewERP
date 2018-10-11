@@ -12,6 +12,8 @@ namespace ERP.DataService.Model.Model
         public Guid Id { set; get; }
         [StringLength(200)]
         public string Name { set; get; }
+        [StringLength(200)]
+        public string RouterPath { set; get; }
         public Guid? SubMenu_Id { set; get; }
     }
 }

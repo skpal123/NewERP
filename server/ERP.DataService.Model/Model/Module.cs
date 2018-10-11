@@ -14,6 +14,7 @@ namespace ERP.DataService.Model.Model
         public string Name { set; get; }
         [StringLength(50)]
         public string RouterPath { set; get; }
+        public int SequencesId { set; get; }
         public List<Menu> menus { set; get; }
     }
 }

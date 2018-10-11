@@ -15,10 +15,12 @@ namespace ERP.DataService.Model.Model
         public DateTime? LoginDate { set; get; }
         public DateTime? Logout { set; get; }
         [StringLength(20)]
+        public string UserId { set; get; }
+        [StringLength(20)]
         public string UserName { set; get; }
         [StringLength(200)]
         public string Password { set; get; }
-         [StringLength(20)]
+        [StringLength(20)]
         public string LoginIp { set; get; }
     }
 }

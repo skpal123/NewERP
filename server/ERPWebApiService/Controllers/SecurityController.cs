@@ -22,12 +22,12 @@ namespace ERPWebApiService.Controllers
 
         [Route("login/{UserName}/{Password}")]
         [HttpGet]
-        public HttpResponseMessage Login(string UserName, string Password, string NewPassword="",string IpAddress="")
+        public HttpResponseMessage Login(string UserName, string Password, string NewPassword = "", string IpAddress = "")
         {
             //string clientIp = GetIPAddress();
             var sessionDto = new SessionInfo();
             UserName = System.Uri.UnescapeDataString(UserName);
-            Password= System.Uri.UnescapeDataString(Password);
+            Password = System.Uri.UnescapeDataString(Password);
             NewPassword = System.Uri.UnescapeDataString(NewPassword);
             var userInfo = ErpContext.UserInfos.FirstOrDefault(u => u.User_Name == UserName);
             if (userInfo != null)
@@ -54,7 +54,7 @@ namespace ERPWebApiService.Controllers
             try
             {
                 // if (newpassword == "" || newpassword == "undefined") CheckPasswordValidy(userInfo);
-                var userSession = SecurityServices.CreateSession(UserName,Password);
+                var userSession = SecurityServices.CreateSession(UserName, Password);
                 sessionDto = CreateSessionInfo(userSession);
                 if (sessionDto != null)
                 {
@@ -167,7 +167,7 @@ namespace ERPWebApiService.Controllers
             ErpContext.SaveChanges();
             return true;
         }
-        
+
         private bool GetDuplicateByHistryOfChangePassword(string userName, string newpassword)
         {
             bool isTrue = false;
@@ -214,7 +214,7 @@ namespace ERPWebApiService.Controllers
         /// <param name="SessionId"></param>
         private void storeSessionManagement(UserInfo userInfo, string ipAddress, string SessionId)
         {
-            var insertQuery = "Insert into ApplicatonAccessLogs (id, user_id, session_id, login_Date, userId, userName, loginip) VALUES ('" + Guid.NewGuid() + "','" + userInfo.Id + "','" + SessionId + "','" + DateTime.Now + "','" + userInfo.User_Id + "','" + userInfo.User_Name + "','" + System.Uri.UnescapeDataString(ipAddress) + "')";
+            var insertQuery = "Insert into ApplicatonAccessLogs (id, user_id, session_id, loginDate, userId, userName, loginip) VALUES ('" + Guid.NewGuid() + "','" + userInfo.Id + "','" + SessionId + "','" + DateTime.Now + "','" + userInfo.User_Id + "','" + userInfo.User_Name + "','" + System.Uri.UnescapeDataString(ipAddress) + "')";
             ErpContext.Database.ExecuteSqlCommand(insertQuery);
             insertQuery = "delete from SessionManagements where user_id='" + userInfo.Id + "' and Password ='" + userInfo.Password + "'";
             ErpContext.Database.ExecuteSqlCommand(insertQuery);
@@ -297,26 +297,26 @@ namespace ERPWebApiService.Controllers
         {
             var sessionInfo = new SessionInfo();
             sessionInfo.SessionId = userSession.SessionToken.ToString();
-
             sessionInfo.UserInfo = new UserInfoView()
             {
                 Id = userSession.User.Id,
                 UserId = userSession.User.User_Id,
-                //EmployeeId = userSession.User.EmployeeId,
-                // UserName = userSession.User.UserName,
-                // PassWordCreateDate = userSession.User.PassWordCreateDate
+                UserName = userSession.User.User_Name,
+                EmployeeId = userSession.User.Employee_Id,
+                //is = userSession.User.IsAllowedBackDatedEntry
             };
-            //sessionInfo.UserInfo.UserRole = iMFASServiceUtil.ConvertRoleToRoleInfo(userSession.User.UserRole);
-
-            //sessionInfo.UserLevel = userSession.User.UserLevel;
-            //sessionInfo.LevelId = userSession.User.UserLevelId;
-            // var configuredBranches = iMFASDataServices.BranchConfigurations;
-            //IOrderedEnumerable<Zone> zoneList = null;
-
-
+            var role = ErpContext.Roles.FirstOrDefault(x => x.Id == userSession.User.Role_Id);
+            if (role != null)
+            {
+                sessionInfo.UserInfo.UserRole = new RoleInfo()
+                {
+                    Id = role.Id,
+                    RoleName = role.RoleName,
+                    //Status = y.Status
+                };
+            }
+            sessionInfo.UserLevel = userSession.User.User_Level;
             // actionLogger.Log(userSession.User.Id, userSession.User.UserId, userSession.User.UserName, sessionInfo.SessionId, ActionLogItem.Branch, ActionItem.Read, "Data read successfully");
-            //sessionInfo.PluginName = ConfigurationManager.AppSettings["default_Plugin"].ToString();
-            //var clientCode = ConfigurationManager.AppSettings["client_code"].ToString();
             return sessionInfo;
         }
 
