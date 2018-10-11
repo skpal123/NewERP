@@ -10,55 +10,25 @@ const routes: Routes = [
       {
         path:'',
         loadChildren:'src/app/master-settings/accounts-defination-module/accounts-defination-module.module#AccountsDefinationModuleModule'
-      }
-    ]
-  },
-  {
-    path:'accounts-defination/:id',
-    component:MasterSettingsMenuComponent,
-    children:[
+      },
       {
-        path:'',
+        path:'accounts-defination/:id',
         loadChildren:'src/app/master-settings/accounts-defination-module/accounts-defination-module.module#AccountsDefinationModuleModule'
-      }
-    ]
-  },
-  {
-    path:'fixed-asset-defination/:id',
-    component:MasterSettingsMenuComponent,
-    children:[
+      },
       {
-        path:'',
+        path:'fixed-asset-defination/:id',
         loadChildren:'src/app/master-settings/fixed-asset-defination-module/fixed-asset-defination-module.module#FixedAssetDefinationModuleModule'
-      }
-    ]
-  },
-  {
-    path:'hr-payroll-defination/:id',
-    component:MasterSettingsMenuComponent,
-    children:[
+      },
       {
-        path:'',
+        path:'hr-payroll-defination/:id',
         loadChildren:'src/app/master-settings/hr-payroll-defination-module/hr-payroll-defination-module.module#HrPayrollDefinationModuleModule'
-      }
-    ]
-  },
-  {
-    path:'inventory-defination/:id',
-    component:MasterSettingsMenuComponent,
-    children:[
+      },
       {
-        path:'',
+        path:'inventory-defination/:id',
         loadChildren:'src/app/master-settings/inventory-defination-module/inventory-defination-module.module#InventoryDefinationModuleModule'
-      }
-    ]
-  },
-  {
-    path:'geographical-area-defination/:id',
-    component:MasterSettingsMenuComponent,
-    children:[
+      },
       {
-        path:'',
+        path:'geographical-area-defination/:id',
         loadChildren:'src/app/master-settings/geographic-area-module/geographic-area-module.module#GeographicAreaModuleModule'
       }
     ]

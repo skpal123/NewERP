@@ -13,12 +13,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="regular-operation-bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-      <li *ngFor="let m of menus"><a routerLink="{{m.RouterPath}}/{{m.Id}}">{{m.Name}}</a></li>
-        <!-- <li><a routerLink="accounts">Accounts</a></li>
-        <li><a routerLink="inventory">Inventory</a></li>
-        <li><a routerLink="fixed-asset">Fixed asset</a></li>
-        <li><a routerLink="providend-fund">Providend fund</a></li>
-        <li><a routerLink="gratuity">Gratuity</a></li> -->
+      <li *ngFor="let m of menus"><a routerLink="{{m.RouterPath}}/{{m.MenuSqenceId}}">{{m.Name}}</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

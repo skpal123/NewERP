@@ -9,25 +9,13 @@ const routes: Routes = [
         {
           path:'',
           loadChildren:'src/app/admin/security/security.module#SecurityModule'
-        }
-    ]
-  },
-  {
-    path:'security',
-    component:AdminMenuComponent,
-    children:[
+        },
         {
-          path:'',
+          path:'security/:id',
           loadChildren:'src/app/admin/security/security.module#SecurityModule'
-        }
-    ]
-  },
-  {
-    path:'support',
-    component:AdminMenuComponent,
-    children:[
+        },
         {
-          path:'',
+          path:'support/:id',
           loadChildren:'src/app/admin/support-module/support-module.module#SupportModuleModule'
         }
     ]

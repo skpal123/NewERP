@@ -14,20 +14,9 @@
     <div class="collapse navbar-collapse" id="master-settings-bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li *ngFor="let m of menus"><a routerLink="{{m.RouterPath}}/{{m.Id}}">{{m.Name}}</a></li>
-        <!-- <li><a routerLink="/login/mainlayout/master-settings/3/accounts-defination">Accounts Defination</a></li>
-        <li><a routerLink="/login/mainlayout/master-settings/3/hr-payroll-defination">Hr&&Payroll defination</a></li>
-        <li><a routerLink="/login/mainlayout/master-settings/3/fixed-asset-defination">Fixed asset Defination</a></li>
-        <li><a routerLink="/login/mainlayout/master-settings/3/inventory-defination">Inventory defination</a></li>
-        <li><a routerLink="/login/mainlayout/master-settings/3/geographical-area-defination">Geographical defination</a></li> -->
+        <li *ngFor="let m of menus"><a routerLink="{{m.RouterPath}}/{{m.MenuSqenceId}}">{{m.Name}}</a></li>
       </ul>
     </div>
   </div>
 </nav>
 <router-outlet></router-outlet>
-<!-- <button routerLink="accounts">Accounts Defination</button>  
-<button routerLink="hr-payroll">Hr&&Payroll defination</button>
-<button routerLink="fixed-asset">Fixed asset Defination</button>  
-<button routerLink="inventory">Inventory defination</button>
-<button routerLink="geographical-area">Geographical defination</button>
-<router-outlet></router-outlet> -->

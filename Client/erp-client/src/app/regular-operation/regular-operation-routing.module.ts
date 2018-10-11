@@ -10,60 +10,25 @@ const routes: Routes = [
       {
         path:'',
         loadChildren:'src/app/regular-operation/hr-payroll/hr-payroll.module#HrPayrollModule'
-      }
-      
-    ]
-  },
-  {
-    path:'accounts/:id',
-    component:RegularOperationMenuComponent,  
-    children:[
+      },
       {
-        path:'',
+        path:'accounts/:id',
         loadChildren:'src/app/regular-operation/accounts/accounts.module#AccountsModule'
-      }
-      
-    ]
-  },
-  {
-    path:'hr-payroll/:id',
-    component:RegularOperationMenuComponent,  
-    children:[
+      },
       {
-        path:'',
+        path:'hr-payroll/:id',
         loadChildren:'src/app/regular-operation/hr-payroll/hr-payroll.module#HrPayrollModule'
-      }
-      
-    ]
-  },
-  {
-    path:'finance/:id',
-    component:RegularOperationMenuComponent,  
-    children:[
+      },
       {
-        path:'',
+        path:'finance/:id',
         loadChildren:'src/app/regular-operation/ro-finance/ro-finance.module#RoFinanceModule'
-      }
-      
-    ]
-  },
-  {
-    path:'fixed-asset/:id',
-    component:RegularOperationMenuComponent,  
-    children:[
+      },
       {
-        path:'',
+        path:'fixed-asset/:id',
         loadChildren:'src/app/regular-operation/ro-fixed-assest/ro-fixed-assest.module#RoFixedAssestModule'
-      }
-      
-    ]
-  },
-  {
-    path:'inventory/:id',
-    component:RegularOperationMenuComponent,  
-    children:[
+      },
       {
-        path:'',
+        path:'inventory/:id',
         loadChildren:'src/app/regular-operation/ro-inventory/ro-inventory.module#RoInventoryModule'
       }  
     ]

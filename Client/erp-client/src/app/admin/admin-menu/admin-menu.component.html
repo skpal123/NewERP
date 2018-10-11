@@ -17,7 +17,7 @@
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngFor="let m of menus"><a routerLink="{{m.RouterPath}}">{{m.Name}}</a></li>
+        <li *ngFor="let m of menus"><a routerLink="{{m.RouterPath}}/{{m.MenuSqenceId}}">{{m.Name}}</a></li>
         <!-- <li><a routerLink="/login/mainlayout/admin/1/{{support}}">Support</a></li>
         <li><a routerLink="/login/mainlayout/admin/tool">admin</a></li>
         <li><a routerLink="regular-operation">Reqular operation</a></li> -->
