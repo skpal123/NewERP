@@ -16,9 +16,12 @@ export class RegularOperationMenuComponent implements OnInit {
     debugger
     this._activateRoute.paramMap.subscribe(param=>{
      var id= param.get("id");
-    if(!this.menuAlreadyLoad){
+      if(id==null){
+        this.getMenusByModule("1");
+      }
+      else
       this.getMenusByModule(id);
-    }
+
     })
   }
   getMenusByModule(moduleSeqId:string){

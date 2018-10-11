@@ -9,15 +9,11 @@
         <span class="icon-bar"></span>
       </button>  
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="security-layout-bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="users">User info</a></li>
-        <li><a routerLink="role-permission">Role permission</a></li>  
-        <li><a routerLink="actioneditlock">Action && edit lock</a></li>     
+        <li *ngFor="let submenu of submenus"><a routerLink="{{submenu.RouterPath}}">{{submenu.Name}}</a></li>   
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
 <router-outlet></router-outlet>

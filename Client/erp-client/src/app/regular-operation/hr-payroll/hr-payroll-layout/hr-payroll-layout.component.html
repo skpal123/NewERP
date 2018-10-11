@@ -13,8 +13,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="hr-payroll-layout-regular-operation-bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink='employee'>Add employee</a></li>
-        <li><a routerLink='employee-list'>Employee list</a></li>       
+        <li *ngFor="let submenu of submenus"><a routerLink="{{submenu.RouterPath}}">{{submenu.Name}}</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
