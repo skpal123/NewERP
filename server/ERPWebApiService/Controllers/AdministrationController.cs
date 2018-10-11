@@ -66,5 +66,28 @@ namespace ERPWebApiService.Controllers
             }
 
         }
+        [Route("getSubMenusByMenuId/{MenuSeqId}")]
+        [HttpGet]
+        public HttpResponseMessage getSubMenusByMenuSeqId(string MenuSeqId)
+        {
+            try
+            {
+                var menuid = Convert.ToInt32(MenuSeqId);
+                var submenus = ERPContext.SubMenus.Where(m => m.MenuSqId == menuid).Select(x => new SubMenuView
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    RouterPath = x.RouterPath,
+                    SubMenuSqId = x.SubMenuSqId,
+                    MenuSqId = x.MenuSqId,
+                }).ToList();
+                return Request.CreateResponse(HttpStatusCode.OK, submenus);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+
+        }
     }
 }
