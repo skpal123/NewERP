@@ -1,4 +1,5 @@
-﻿using ERPWebApiService.Authentication;
+﻿using ERP.DataService.Model;
+using ERPWebApiService.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,6 +15,7 @@ namespace ERPWebApiService.Autentication
     {
         public static UserSession GetSession()
         {
+            SumonERPContext ERPContext = new SumonERPContext();
             var requestObj = HttpContext.Current.Request.Headers.GetValues("sessionId");
             var sessionId = HttpContext.Current.Request.Headers != null ? HttpContext.Current.Request.Headers.Get("sessionid") : null;
             if (sessionId == null)
@@ -25,18 +27,18 @@ namespace ERPWebApiService.Autentication
                 var userSession = SecurityServices.LookupSession(sessionId);
                 if (!IsSessionExist(sessionId)) throw  new Exceptions.InvalidSessionFailure();
 
-                var UserId = Convert.ToString(HttpContext.Current.Request.Headers["UserId"]);
-                var action = Convert.ToString(HttpContext.Current.Request.Headers["ActionName"]);
-                var AgentId = Convert.ToString(HttpContext.Current.Request.Headers["AgentId"]);
-                //if (!string.IsNullOrEmpty(pluginName))
-                //{
-                //    List<PermissionInfo> permissions = GetActionPermissions(UserId, pluginName, action);
-                //    if (permissions.Count() > 0)
-                //        return userSession;
-                //    else
-                //        throw GenerateServiceError("You are not authorized to do this Action.", HttpStatusCode.Forbidden, new LogMessage(EnumLogLevel.Warn, new Exception()));
-                //}
-                //else
+                var UserId = Convert.ToString(HttpContext.Current.Request.Headers["userId"]);
+                var Action = Convert.ToString(HttpContext.Current.Request.Headers["actionName"]);
+                var ItemName = Convert.ToString(HttpContext.Current.Request.Headers["itemName"]);
+                if (!string.IsNullOrEmpty(ItemName))
+                {
+                    List<PermissionView> permissions = GetActionPermissions(UserId, ItemName, Action);
+                    if (permissions.Count() > 0)
+                        return userSession;
+                    else
+                        throw new UnauthorizedAccessException("You are not authorized to do this Action.");
+                }
+                else
                 return userSession;
             }
             catch (Exception ex)
@@ -44,73 +46,70 @@ namespace ERPWebApiService.Autentication
                 throw new Exception(ex.Message);
             }
         }
-        //public static List<PermissionView> GetActionPermissions(string userId, string pluginName, string actionName)
-        //{
-        //    List<PermissionView> permissions = new List<PermissionView>();
-        //    //var logMessage = new LogMessage(EnumLogLevel.Info);
-        //    //serviceLogger.Log(EnumLogLevel.Debug, "Call Get Action Permission list .");
+        public static List<PermissionView> GetActionPermissions(string userId, string itemName, string actionName)
+        {
+            SumonERPContext ERPContext = new SumonERPContext();
+            List<PermissionView> permissions = new List<PermissionView>();
+            //var logMessage = new LogMessage(EnumLogLevel.Info);
+            //serviceLogger.Log(EnumLogLevel.Debug, "Call Get Action Permission list .");
 
-        //    try
-        //    {
-        //        var userPermissions = iMFASDataServices.UserPermissions.Count(up => up.UserId == Guid.Parse(userId));
-        //        if (userPermissions > 0)
-        //        {
-        //            permissions = (from userPermission in iMFASDataServices.UserPermissions
-        //                           join permission in iMFASDataServices.Permissions on userPermission.PermissionId equals permission.Id
-        //                           join userinfo in iMFASDataServices.Users
-        //                           on new { uId = userPermission.UserId, roleId = userPermission.RoleId } equals new { uId = userinfo.Id, roleId = userinfo.UserRole.Id }
-        //                           join item in iMFASDataServices.Items on permission.ItemId equals item.Id
-        //                           join subMenu in iMFASDataServices.SubMenus on item.SubMenuId equals subMenu.Id
-        //                           where userinfo.Id == Guid.Parse(userId)
-        //                               && subMenu.PluginName == pluginName
-        //                               && permission.ActionName == actionName
-        //                           select new PermissionInfo()
-        //                           {
-        //                               Id = permission.Id,
-        //                               PermissionName = permission.PermissionName,
-        //                               ItemId = item.Id,
-        //                               ItemName = item.ItemName,
-        //                               SubMenuId = subMenu.Id,
-        //                               SubMenuName = subMenu.SubMenuName
-        //                           }).ToList();
+            try
+            {
+                var userid = Guid.Parse(userId);
+                var userPermissions = ERPContext.UserPermissions.Count(x => x.User_Id == userid);
+                if (userPermissions > 0)
+                {
+                    permissions = (from userPermission in ERPContext.UserPermissions
+                                   join permission in ERPContext.Permissions on userPermission.Permission_Id equals permission.Id
+                                   join userinfo in ERPContext.UserInfos
+                                   on new { uId = userPermission.User_Id, roleId = userPermission.Role_Id } equals new { uId = userinfo.Id, roleId = userinfo.Role_Id }
+                                   join subMenu in ERPContext.SubMenus on permission.SubMenu_id equals subMenu.Id
+                                   where userinfo.Id == Guid.Parse(userId)
+                                       && subMenu.ItemName == itemName
+                                       && permission.Name == actionName
+                                   select new PermissionView()
+                                   {
+                                       Id = permission.Id,
+                                       PermissionName = permission.Name,
+                                       ItemName = subMenu.ItemName,
+                                       SubMenuId = subMenu.Id,
+                                       SubMenuName = subMenu.Name
+                                   }).ToList();
 
-        //        }
-        //        else
-        //        {
-        //            permissions = (from mod in iMFASDataServices.Modules
-        //                           join menu in iMFASDataServices.Menus on mod.Id equals menu.ModuleId
-        //                           join subMenu in iMFASDataServices.SubMenus on menu.Id equals subMenu.MenuId
-        //                           join item in iMFASDataServices.Items on subMenu.Id equals item.SubMenuId
-        //                           join permission in iMFASDataServices.Permissions on item.Id equals permission.ItemId
-        //                           join rolepermission in iMFASDataServices.RolePermissions on permission.Id equals rolepermission.PermissionId
-        //                           join userinfo in iMFASDataServices.Users on rolepermission.RoleId equals userinfo.UserRole.Id
-        //                           where userinfo.Id == Guid.Parse(userId)
-        //                           && subMenu.PluginName == pluginName
-        //                           && permission.ActionName == actionName
-        //                           select new PermissionInfo()
-        //                           {
-        //                               Id = permission.Id,
-        //                               PermissionName = permission.PermissionName,
-        //                               ItemId = item.Id,
-        //                               ItemName = item.ItemName,
-        //                               SubMenuId = subMenu.Id,
-        //                               SubMenuName = subMenu.SubMenuName,
-        //                               MenuId = menu.Id,
-        //                               MenuName = menu.MenuName,
-        //                               ModuleId = mod.Id,
-        //                               ModuleName = mod.ModuleName
-        //                           }).ToList();
-        //        }
-        //        serviceLogger.Log(EnumLogLevel.Debug, "Complete Get Action Permission function.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw AuthorizationHelper.GenerateServiceError(ex.Message, HttpStatusCode.InternalServerError, logMessage.Clone(EnumLogLevel.Warn));
-        //    }
 
-        //    return permissions;
-        //    return new UserSession();
-        //}
+                }
+                else
+                {
+                    permissions = (from mod in ERPContext.Modules
+                                   join menu in ERPContext.Menus on mod.Id equals menu.Module_Id
+                                   join subMenu in ERPContext.SubMenus on menu.Id equals subMenu.Menu_Id
+                                   join permission in ERPContext.Permissions on subMenu.Id equals permission.SubMenu_id
+                                   join rolepermission in ERPContext.RolePermissions on permission.Id equals rolepermission.Permission_Id
+                                   join userinfo in ERPContext.UserInfos on rolepermission.Role_Id equals userinfo.Role_Id
+                                   where userinfo.Id == Guid.Parse(userId)
+                                   && subMenu.ItemName == itemName
+                                   && permission.Name == actionName
+                                   select new PermissionView()
+                                   {
+                                       Id = permission.Id,
+                                       PermissionName = permission.Name,
+                                       ItemName = subMenu.ItemName,
+                                       SubMenuId = subMenu.Id,
+                                       SubMenuName = subMenu.Name,
+                                       MenuId = menu.Id,
+                                       MenuName = menu.Name,
+                                       ModuleId = mod.Id,
+                                       ModuleName = mod.Name
+                                   }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return permissions;
+        }
         protected static bool IsSessionExist(string sessionId)
         {
             var sessionExist = false;

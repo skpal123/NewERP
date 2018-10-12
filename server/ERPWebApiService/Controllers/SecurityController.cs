@@ -62,6 +62,7 @@ namespace ERPWebApiService.Controllers
                     storeSessionManagement(userInfo, IpAddress, sessionDto.SessionId);
                     //securityLogger.Log(EnumLogLevel.Info, "Login successful for user:" + userSession.User.UserId);
                 }
+                return Request.CreateResponse(HttpStatusCode.OK, sessionDto);
             }
             catch (SessionCreationFailure)
             {
@@ -316,6 +317,18 @@ namespace ERPWebApiService.Controllers
                 };
             }
             sessionInfo.UserLevel = userSession.User.User_Level;
+            sessionInfo.LevelId = userSession.User.User_Level_Id;
+            sessionInfo.BranchInfos = (from branch in ErpContext.Branchs
+                                       join branchConfig in ErpContext.BranchConfigurations
+                                       on branch.Id equals branchConfig.Branch_Id
+                                       select new BranchInfo
+                                       {
+                                           Id=branch.Id,
+                                           BranchName=branch.BranchName,
+                                           BranchCode=branch.BranchCode,
+                                           BranchId=branch.BranchId,
+                                           CurrentDate=branchConfig.CurrentDate
+                                       }).ToList();
             // actionLogger.Log(userSession.User.Id, userSession.User.UserId, userSession.User.UserName, sessionInfo.SessionId, ActionLogItem.Branch, ActionItem.Read, "Data read successfully");
             return sessionInfo;
         }

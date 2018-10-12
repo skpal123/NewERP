@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\BranchInfo.cs" />
     <Compile Include="Model\ItemView.cs" />
     <Compile Include="Model\Login.cs" />
     <Compile Include="Model\MenuView.cs" />

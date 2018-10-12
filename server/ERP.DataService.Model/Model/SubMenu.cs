@@ -17,5 +17,9 @@ namespace ERP.DataService.Model.Model
         public Guid? Menu_Id { set; get; }
         public int MenuSqId { set; get; }
         public int SubMenuSqId { set; get; }
+        [StringLength(100)]
+        public string ItemName { set; get; }
+        [StringLength(100)]
+        public string TableName { set; get; }
     }
 }

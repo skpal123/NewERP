@@ -18,5 +18,8 @@ namespace ERPWebApiService.Exceptions
     public class InactiveUser : Exception
     {
     }
+    public class UnAuthorizedException : Exception
+    {
+    }
  
 }

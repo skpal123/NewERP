@@ -22,8 +22,12 @@ namespace ERP.DataService.Model
         public DbSet<Permission> Permissions { set; get; }
         public DbSet<Role> Roles { set; get; }
         public DbSet<RolePermission> RolePermissions { set; get; }
+        public DbSet<UserPermission> UserPermissions { set; get; }
+
         public DbSet<PasswordChangeHistory> PasswordChangeHistorys { set; get; }
         public DbSet<SessionManagement> SessionManagements { set; get; }
         public DbSet<ApplicatonAccessLog> ApplicatonAccessLogs { set; get; }
+        public DbSet<Branch> Branchs { set; get; }
+        public DbSet<BranchConfiguration> BranchConfigurations { set; get; }
     }
 }

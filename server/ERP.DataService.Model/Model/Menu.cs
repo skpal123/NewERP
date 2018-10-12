@@ -12,9 +12,9 @@ namespace ERP.DataService.Model.Model
         public Guid Id { set; get; }
         [StringLength(50)]
         public string Name { set; get; }
-        public Module module { set; get; }
         [StringLength(200)]
         public string RouterPath { set; get; }
+        public Guid Module_Id { set; get; }
         public string ImagePath { set; get; }
         public int MenuSqenceId { set; get; }
         public int ModuleSeqId { set; get; }

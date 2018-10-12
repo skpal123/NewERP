@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection.cs" />
     <Compile Include="Migrations\201808291653552_creating db and userinfo table.cs" />
     <Compile Include="Migrations\201808291653552_creating db and userinfo table.Designer.cs">
       <DependentUpon>201808291653552_creating db and userinfo table.cs</DependentUpon>
@@ -95,8 +96,26 @@
     <Compile Include="Migrations\201809261432481_adding router path.Designer.cs">
       <DependentUpon>201809261432481_adding router path.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810120818541_update.cs" />
+    <Compile Include="Migrations\201810120818541_update.Designer.cs">
+      <DependentUpon>201810120818541_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810120823413_update1.cs" />
+    <Compile Include="Migrations\201810120823413_update1.Designer.cs">
+      <DependentUpon>201810120823413_update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810121510363_adding branch and configuration table.cs" />
+    <Compile Include="Migrations\201810121510363_adding branch and configuration table.Designer.cs">
+      <DependentUpon>201810121510363_adding branch and configuration table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810121907385_update2.cs" />
+    <Compile Include="Migrations\201810121907385_update2.Designer.cs">
+      <DependentUpon>201810121907385_update2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicatonAccessLog.cs" />
+    <Compile Include="Model\Branch.cs" />
+    <Compile Include="Model\BranchConfiguration.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Menu.cs" />
     <Compile Include="Model\Module.cs" />
@@ -107,6 +126,7 @@
     <Compile Include="Model\SessionManagement.cs" />
     <Compile Include="Model\SubMenu.cs" />
     <Compile Include="Model\UserInfo.cs" />
+    <Compile Include="Model\UserPermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SumonERPContext.cs" />
   </ItemGroup>
@@ -135,6 +155,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809261432481_adding router path.resx">
       <DependentUpon>201809261432481_adding router path.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810120818541_update.resx">
+      <DependentUpon>201810120818541_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810120823413_update1.resx">
+      <DependentUpon>201810120823413_update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810121510363_adding branch and configuration table.resx">
+      <DependentUpon>201810121510363_adding branch and configuration table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810121907385_update2.resx">
+      <DependentUpon>201810121907385_update2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

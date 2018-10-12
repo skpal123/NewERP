@@ -52,3 +52,7 @@ E:\My Project\ProjectGit\ERP\server\ERP.DataService.Model\obj\Debug\ERP.DataServ
 E:\My Project\ProjectGit\ERP\server\ERP.DataService.Model\obj\Debug\ERP.DataService.Model.csproj.GenerateResource.Cache
 E:\My Project\ProjectGit\ERP\server\ERP.DataService.Model\obj\Debug\ERP.DataService.Model.dll
 E:\My Project\ProjectGit\ERP\server\ERP.DataService.Model\obj\Debug\ERP.DataService.Model.pdb
+E:\My Project\ProjectGit\ERP\server\ERP.DataService.Model\obj\Debug\ERP.DataService.Model.Migrations.update.resources
+E:\My Project\ProjectGit\ERP\server\ERP.DataService.Model\obj\Debug\ERP.DataService.Model.Migrations.update1.resources
+E:\My Project\ProjectGit\ERP\server\ERP.DataService.Model\obj\Debug\ERP.DataService.Model.Migrations.addingbranchandconfigurationtable.resources
+E:\My Project\ProjectGit\ERP\server\ERP.DataService.Model\obj\Debug\ERP.DataService.Model.Migrations.update2.resources
