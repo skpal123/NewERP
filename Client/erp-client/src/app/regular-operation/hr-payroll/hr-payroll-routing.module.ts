@@ -13,6 +13,15 @@ const routes: Routes = [
       {path:'',component:EmployeeComponent},
     ]
   },
+  {
+    path:'hr-payroll',
+    component:HrPayrollLayoutComponent,
+    children:[
+      {path:'employee',component:EmployeeComponent},
+      {path:'employee-list',component:EmployeeListComponent},
+      {path:'',component:EmployeeComponent},
+    ]
+  },
 ];
 
 @NgModule({

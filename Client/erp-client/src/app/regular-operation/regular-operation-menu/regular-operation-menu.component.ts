@@ -17,7 +17,7 @@ export class RegularOperationMenuComponent implements OnInit {
     this._activateRoute.paramMap.subscribe(param=>{
      var id= param.get("id");
       if(id==null){
-        this.getMenusByModule("1");
+        this.getMenusByModule("2");
       }
       else
       this.getMenusByModule(id);

@@ -30,6 +30,10 @@ const routes: Routes = [
       {
         path:'geographical-area-defination/:id',
         loadChildren:'src/app/master-settings/geographic-area-module/geographic-area-module.module#GeographicAreaModuleModule'
+      },
+      {
+        path:'master-entry/:id',
+        loadChildren:'src/app/master-settings/master-entry-module/master-entry-module.module#MasterEntryModule'
       }
     ]
   }

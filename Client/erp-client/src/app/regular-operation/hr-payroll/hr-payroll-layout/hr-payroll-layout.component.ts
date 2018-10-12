@@ -13,9 +13,15 @@ export class HrPayrollLayoutComponent implements OnInit {
   constructor(private _postLoginService:PostLoginService,private _activateRoute:ActivatedRoute) { }
 
   ngOnInit() {
+    debugger
     this._activateRoute.paramMap.subscribe(param=>{
       var id=param.get('id');
-      this.getSubmnenuByMenuSeqId(id);
+      if(id==null){
+        this.getSubmnenuByMenuSeqId("4");
+      }
+      else{
+        this.getSubmnenuByMenuSeqId(id);
+      }
     })
   }
   getSubmnenuByMenuSeqId(MenuSeqId:string){
