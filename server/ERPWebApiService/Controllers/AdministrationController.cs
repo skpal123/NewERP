@@ -89,28 +89,46 @@ namespace ERPWebApiService.Controllers
             }
 
         }
-        //[Route("getSubMenusByMenuId/{MenuSeqId}")]
-        //[HttpGet]
-        //public HttpResponseMessage getUsers()
-        //{
-        //    try
-        //    {
-        //        var menuid = Convert.ToInt32(MenuSeqId);
-        //        var submenus = ERPContext.SubMenus.Where(m => m.MenuSqId == menuid).Select(x => new SubMenuView
-        //        {
-        //            Id = x.Id,
-        //            Name = x.Name,
-        //            RouterPath = x.RouterPath,
-        //            SubMenuSqId = x.SubMenuSqId,
-        //            MenuSqId = x.MenuSqId,
-        //        }).ToList();
-        //        return Request.CreateResponse(HttpStatusCode.OK, submenus);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
-        //    }
+        [Route("getUsers")]
+        [HttpGet]
+        public HttpResponseMessage getUsers()
+        {
+            try
+            {
+                var menusControl = ERPContext.Modules.Select(x => new ModuleView
+                {
+                    Id=x.Id,
+                    Name=x.Name,
+                    RouterPath=x.RouterPath,
+                    SequenceId=x.SequencesId,
+                    Menus = ERPContext.Menus.Where(y => y.Module_Id == x.Id).Select(y=>new MenuView
+                    {
+                        Id=y.Id,
+                        Name=y.Name,
+                        RouterPath=y.RouterPath,
+                        MenuSqenceId=y.MenuSqenceId,
+                        ModuleSeqId=y.ModuleSeqId,
+                        ImagePath=y.ImagePath,
+                        Module_Id=y.Module_Id,
+                        SubMenus=ERPContext.SubMenus.Where(z=>z.Menu_Id==y.Id).Select(s=>new SubMenuView
+                        {
+                            Id=s.Id,
+                            Name=s.Name,
+                            Menu_Id=s.Menu_Id,
+                            MenuSqId=s.MenuSqId,
+                            RouterPath=s.RouterPath,
+                            SubMenuSqId=s.SubMenuSqId,
+                            ItemName=s.ItemName,
+                        }).ToList(),
+                    }).ToList(),
+                }).ToList();
+                return Request.CreateResponse(HttpStatusCode.OK, menusControl);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
 
-        //}
+        }
     }
 }

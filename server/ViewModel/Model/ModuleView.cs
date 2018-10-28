@@ -12,5 +12,6 @@ namespace ViewModel.Model
         public string Name { set; get; }
         public string RouterPath { set; get; }
         public int SequenceId { set; get; }
+        public List<MenuView> Menus { set; get; }
     }
 }

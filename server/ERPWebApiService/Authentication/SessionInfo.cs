@@ -15,7 +15,9 @@ namespace ERPWebApiService.Autentication
         public double SessionTime { get; set; }
 
         public List<BranchInfo> BranchInfos { set; get; }
-
+        public List<ModuleView> Modules { set; get; }
+        public List<MenuView> Menus { set; get; }
+        public List<SubMenuView> SubMenus { set; get; }
         public int? UserLevel { get; set; }
 
         public Guid? LevelId { get; set; }

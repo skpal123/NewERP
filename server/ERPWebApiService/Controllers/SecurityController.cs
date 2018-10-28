@@ -329,6 +329,63 @@ namespace ERPWebApiService.Controllers
                                            BranchId=branch.BranchId,
                                            CurrentDate=branchConfig.CurrentDate
                                        }).ToList();
+            sessionInfo.Modules = ErpContext.Modules.Select(x => new ModuleView
+            {
+                Id = x.Id,
+                Name = x.Name,
+                RouterPath = x.RouterPath,
+                SequenceId = x.SequencesId,
+                Menus = ErpContext.Menus.Where(y => y.Module_Id == x.Id).Select(y => new MenuView
+                {
+                    Id = y.Id,
+                    Name = y.Name,
+                    RouterPath = y.RouterPath,
+                    MenuSqenceId = y.MenuSqenceId,
+                    ModuleSeqId = y.ModuleSeqId,
+                    ImagePath = y.ImagePath,
+                    Module_Id = y.Module_Id,
+                    SubMenus = ErpContext.SubMenus.Where(z => z.Menu_Id == y.Id).Select(s => new SubMenuView
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        Menu_Id = s.Menu_Id,
+                        MenuSqId = s.MenuSqId,
+                        RouterPath = s.RouterPath,
+                        SubMenuSqId = s.SubMenuSqId,
+                        ItemName = s.ItemName,
+                    }).ToList(),
+                }).ToList(),
+            }).ToList();
+            sessionInfo.Menus = ErpContext.Menus.Select(y => new MenuView
+                {
+                    Id = y.Id,
+                    Name = y.Name,
+                    RouterPath = y.RouterPath,
+                    MenuSqenceId = y.MenuSqenceId,
+                    ModuleSeqId = y.ModuleSeqId,
+                    ImagePath = y.ImagePath,
+                    Module_Id = y.Module_Id,
+                    SubMenus = ErpContext.SubMenus.Where(z => z.Menu_Id == y.Id).Select(s => new SubMenuView
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        Menu_Id = s.Menu_Id,
+                        MenuSqId = s.MenuSqId,
+                        RouterPath = s.RouterPath,
+                        SubMenuSqId = s.SubMenuSqId,
+                        ItemName = s.ItemName,
+                    }).ToList(),
+                }).ToList();
+            sessionInfo.SubMenus = ErpContext.SubMenus.Select(s => new SubMenuView
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        Menu_Id = s.Menu_Id,
+                        MenuSqId = s.MenuSqId,
+                        RouterPath = s.RouterPath,
+                        SubMenuSqId = s.SubMenuSqId,
+                        ItemName = s.ItemName,
+                    }).ToList();
             // actionLogger.Log(userSession.User.Id, userSession.User.UserId, userSession.User.UserName, sessionInfo.SessionId, ActionLogItem.Branch, ActionItem.Read, "Data read successfully");
             return sessionInfo;
         }
