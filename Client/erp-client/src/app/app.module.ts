@@ -3,8 +3,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+// import { MatNativeDateModule, MatDialogModule,MatTableModule,MatSortModule,MatPaginatorModule
+// } from '@angular/material';
+import {SharedModule} from 'src/app/shared/shared/shared.module'
 import {FormsModule, ReactiveFormsModule,FormControl} from '@angular/forms';
 import { AppComponent } from './app.component';
+
 const routes:Routes=[
   {
     path: 'login',
@@ -24,10 +28,13 @@ const routes:Routes=[
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes,{useHash:true}),
-    HttpModule,FormsModule,ReactiveFormsModule
+    HttpModule,FormsModule,ReactiveFormsModule,
+    SharedModule
+    //MatNativeDateModule, MatDialogModule,MatTableModule,MatSortModule,MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  //entryComponents:[AlertComponent]
 })
 export class AppModule { }

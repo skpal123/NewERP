@@ -16,7 +16,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   login(){
-    this._loginService.login(this.Username,this.Password,this.NewPassword,this.IpAddress).subscribe(respose=>{
+    this._loginService.login(this.Username,this.Password,this.NewPassword,this.IpAddress).subscribe(response=>{
+      var loggedData=response.json();
+      sessionStorage.setItem('loggedData',JSON.stringify( response.json()));
       this._router.navigate(['login/postlogin']);  
     },error=>{
 

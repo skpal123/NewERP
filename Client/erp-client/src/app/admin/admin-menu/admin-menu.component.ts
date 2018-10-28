@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Menu } from '../../models/admin/menu';
 import { PostLoginService } from '../../services/common/post-login.service';
 import { NavigationDataProiderService } from '../../shared/navigation-data-proider.service';
+import { SessionService } from '../../services/common/session.service';
+import { Module } from '../../models/admin/module';
 
 @Component({
   selector: 'app-admin-menu',
@@ -12,6 +14,9 @@ import { NavigationDataProiderService } from '../../shared/navigation-data-proid
 export class AdminMenuComponent implements OnInit,OnDestroy {
   menuAlreadyLoad:boolean=false
   menus:Menu[]=[];
+  modules:Module[]=[];
+  module:Module;
+  ModuleSeqId:number;
   // menus=[
   //   {Id:1,Name:"Security",RouterPath:"/login/mainlayout/admin/1/security",MouduleId:1},
   //   {Id:2,Name:"Support",RouterPath:"/login/mainlayout/admin/1/support",MouduleId:1},
@@ -20,17 +25,25 @@ export class AdminMenuComponent implements OnInit,OnDestroy {
   // ]
   constructor(private _activateRoute:ActivatedRoute,
     private _postLoginService:PostLoginService,
-    private _navigaionDataProvider:NavigationDataProiderService) { }
+    private _navigaionDataProvider:NavigationDataProiderService,
+    private _sesionService:SessionService) { }
 
   ngOnInit() {
     debugger
+    this.modules=this._sesionService.Modules;
     this._activateRoute.paramMap.subscribe(param=>{
      var id= param.get("id");
      if(id==null){
-      this.getMenusByModule("1");
+       this.ModuleSeqId=Number(id);
+      this.menus=this.modules[1].Menus
      }
-     else
-     this.getMenusByModule(id);
+     else{
+      let index=this.modules.findIndex((m,index,array)=>m.SequenceId==Number(id))
+      this.menus=this.modules[index].Menus
+      this._navigaionDataProvider.data=this.ModuleSeqId;
+      // this.getMenusByModule(id);
+      //alert(this._sesionService.SelectedBranchId)
+     }
     })
   }
   getMenusByModule(moduleSeqId:string){
@@ -43,7 +56,7 @@ export class AdminMenuComponent implements OnInit,OnDestroy {
     })
   }
   ngOnDestroy(){
-    this._navigaionDataProvider.data=this.menus;
+    this._navigaionDataProvider.data=this.ModuleSeqId;
   }
 
 }

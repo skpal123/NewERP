@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Submenu } from '../../../models/admin/submenu';
 import { PostLoginService } from '../../../services/common/post-login.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SessionService } from '../../../services/common/session.service';
+import { Menu } from '../../../models/admin/menu';
 
 @Component({
   selector: 'app-hr-payroll-layout',
@@ -10,18 +12,28 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HrPayrollLayoutComponent implements OnInit {
   submenus:Submenu[]=[];
-  constructor(private _postLoginService:PostLoginService,private _activateRoute:ActivatedRoute) { }
+  menus:Menu[]=[];
+  constructor(private _postLoginService:PostLoginService,
+    private _activateRoute:ActivatedRoute,
+    private _sessionService:SessionService) { }
 
   ngOnInit() {
     debugger
     this._activateRoute.paramMap.subscribe(param=>{
       var id=param.get('id');
       if(id==null){
-        this.getSubmnenuByMenuSeqId("4");
       }
       else{
-        this.getSubmnenuByMenuSeqId(id);
+        let index=this._sessionService.Modules.findIndex(m=>m.SequenceId==Number(id));
+        if(index==-1){
+          let index=this._sessionService.Menus.findIndex(m=>m.MenuSqenceId==Number(id));
+          this.submenus=this._sessionService.Menus[index].SubMenus;
+        }else{
+          this.menus=this._sessionService.Modules[index].Menus
+          this.submenus=this.menus[1].SubMenus;
+        }
       }
+      //this.getSubmnenuByMenuSeqId(id);
     })
   }
   getSubmnenuByMenuSeqId(MenuSeqId:string){

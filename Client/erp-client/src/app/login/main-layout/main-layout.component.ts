@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../../services/common/session.service';
+import { Module } from '../../models/admin/module';
 
 @Component({
   selector: 'app-main-layout',
@@ -6,15 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-layout.component.css']
 })
 export class MainLayoutComponent implements OnInit {
-  modules=[  
-    {Name:"Admin",RouterPath:"admin",Id:1},
-    {Name:"Regular Operation",RouterPath:"regular-operation",Id:2},
-    {Name:"Master Settings",RouterPath:"master-settings",Id:3},
-    {Name:"Report",RouterPath:"report",Id:4},
-  ]
-  constructor() { }
+  modules:Module[]=[];
+  constructor(private _sessionService:SessionService) { }
 
   ngOnInit() {
+    this.modules=this._sessionService.Modules;
   }
 
 }

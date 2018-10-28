@@ -1,6 +1,6 @@
 <p>
   postlogin works!  
 </p>
-<button routerLink="/login/mainlayout">Dhaka branch</button>  
-<button routerLink="/login/mainlayout">Comilla branch</button>
-<router-outlet></router-outlet>
+
+<button *ngFor="let branch of BranchList" (click)="loadMenus(branch.Id)">{{branch.BranchName}}</button>  
+<router-outlet></router-outlet>  

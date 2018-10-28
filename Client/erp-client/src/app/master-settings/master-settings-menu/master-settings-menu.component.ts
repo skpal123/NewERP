@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostLoginService } from '../../services/common/post-login.service';
 import { Menu } from '../../models/admin/menu';
+import { Module } from '../../models/admin/module';
+import { SessionService } from '../../services/common/session.service';
 
 @Component({
   selector: 'app-master-settings-menu',
@@ -11,21 +13,27 @@ import { Menu } from '../../models/admin/menu';
 export class MasterSettingsMenuComponent implements OnInit {
   menus:Menu[]=[];
   menuAlreadyLoad:boolean=false;
-  // menus=[
-  //   {Id:1,Name:"Accounts Defination",RouterPath:"/login/mainlayout/master-settings/3/accounts-defination",MouduleId:3},
-  //   {Id:2,Name:"Hr&&Payroll defination",RouterPath:"/login/mainlayout/master-settings/3/hr-payroll-defination",MouduleId:3},
-  //   {Id:3,Name:"Fixed asset Defination",RouterPath:"/login/mainlayout/master-settings/3/fixed-asset-defination",MouduleId:3},
-  //   {Id:4,Name:"Inventory defination",RouterPath:"/login/mainlayout/master-settings/3/inventory-defination",MouduleId:3},
-  //   {Id:4,Name:"Geographical defination",RouterPath:"/login/mainlayout/master-settings/3/geographical-area-defination",MouduleId:3},
-  // ]
-  constructor(private _activateRoute:ActivatedRoute,private _postLoginService:PostLoginService) { }
+  modules:Module[];
+  ModuleSeqId:number;
+  constructor(
+    private _activateRoute:ActivatedRoute,
+    private _postLoginService:PostLoginService,
+    private _sesionService:SessionService) { }
 
   ngOnInit() {
     debugger
+    this.modules=this._sesionService.Modules;
     this._activateRoute.paramMap.subscribe(param=>{
      var id= param.get("id");
-    if(!this.menuAlreadyLoad){
-      this.getMenusByModule(id);
+     if(id==null){
+      this.ModuleSeqId=Number(id);
+     this.menus=this.modules[3].Menus
+    }
+    else{
+     let index=this.modules.findIndex((m,index,array)=>m.SequenceId==Number(id))
+     this.menus=this.modules[index].Menus
+     // this.getMenusByModule(id);
+     //alert(this._sesionService.SelectedBranchId)
     }
     })
   }

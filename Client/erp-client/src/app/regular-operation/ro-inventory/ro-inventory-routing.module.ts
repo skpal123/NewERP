@@ -8,7 +8,8 @@ const routes: Routes = [
     path:'',
     component:RoInventoryLayoutComponent,
     children:[
-      {path:'',component:AddItemComponent}
+      {path:'',component:AddItemComponent},
+      {path:'add-item',component:AddItemComponent}
     ]
   }
 ];
