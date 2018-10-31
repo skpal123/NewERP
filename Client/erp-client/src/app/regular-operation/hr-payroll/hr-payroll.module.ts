@@ -5,16 +5,16 @@ import { HrPayrollRoutingModule } from './hr-payroll-routing.module';
 import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { HrPayrollLayoutComponent } from './hr-payroll-layout/hr-payroll-layout.component';
-import {SharedModule} from '../../shared/shared/shared.module'
+//import {SharedModule} from '../../shared/shared/shared.module'
+import {CommonModuleModule} from 'src/app/common-module/common-module.module'
 import { MatNativeDateModule, MatDialogModule,MatTableModule,MatSortModule,MatPaginatorModule
 } from '@angular/material';
 @NgModule({
   imports: [
     CommonModule,
-    HrPayrollRoutingModule,
-    SharedModule,
-    //MatNativeDateModule, MatDialogModule,MatTableModule,MatSortModule,MatPaginatorModule
-    //DataTablesModule 
+    HrPayrollRoutingModule,   
+    //SharedModule,
+    CommonModuleModule
   ],
   declarations: [EmployeeComponent, EmployeeListComponent, HrPayrollLayoutComponent]
 })

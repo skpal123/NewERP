@@ -28,6 +28,7 @@
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
     "jquery": "^3.3.1",
+    "ng2-completer": "^2.0.8",
     "ng2-tree": "^2.0.0-rc.11",
     "rxjs": "^6.3.2",
     "rxjs-compat": "^6.2.2",
