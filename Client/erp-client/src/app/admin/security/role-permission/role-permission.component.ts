@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Tree } from '../../../models/common/tree';
 
 @Component({
   selector: 'app-role-permission',
@@ -8,105 +9,130 @@ import { Component, OnInit } from '@angular/core';
 export class RolePermissionComponent implements OnInit {
 
   isFound:boolean=false;
-  tree=[{
-    "name":"grocery",
-    "status":true,
-    "id":1,
-    "checked":true,
-    "isClicked":false,
-    "children":
+  p:Tree[]=[]
+  tree:Tree[]=[{
+    Name:"Regular Operation",
+    Status:true,
+    Id:"1",
+    Checked:true,
+    IsClicked:false,
+    Children:
      [
       {
-       "name":"rice",
-       "id":2,
-       "status":true,
-       "checked":true,
-       "isClicked":false,
-       "children":[{
-        "name":"rice-1",
-        "id":2,
-        "status":true,
-        "isClicked":false,
-        "checked":false,
+       Name:"Finance",
+       Id:"2",
+       Status:true,
+       Checked:true,
+       IsClicked:false,
+       Children:[{
+          Name:"Voucher",
+          Id:"2",
+          Status:true,
+          IsClicked:false,
+          Checked:false,
        }],
       },
       {
-        "name":"paddy",
-        "status":true,
-        "id":3,
-        "checked":true,
-        "isClicked":false,
-        "children":[{
-          "name":"paddy-1",
-          "status":true,
-          "checked":false,
-          "isClicked":false
+        Name:"Fixed asset",
+        Status:true,
+        Id:"3",
+        Checked:true,
+        IsClicked:false,
+        Children:[{
+          Name:"Fixed asset opening",
+          Id:"16",
+          Status:true,
+          Checked:false,
+          IsClicked:false,
+          Children:[
+            {
+              Name:"Create",
+              Id:"17",
+              Status:true,
+              Checked:false,
+              IsClicked:false,
+            },
+            {
+              Name:"update",
+              Id:"18",
+              Status:true,
+              Checked:false,
+              IsClicked:false,
+            },
+            {
+              Name:"Delete",
+              Id:"18",
+              Status:true,
+              Checked:false,
+              IsClicked:false,
+            }
+          ]
         }],
        },
        {
-        "name":"salt",
-        "status":true,
-        "isClicked":false,
-        "id":4,
-        "checked":false,
-        "children":[{
-          "name":"salt-1",
-          "id":12,
-          "status":true,
-          "isClicked":false,
-          "checked":false,
+        Name:"Inventory",
+        Status:true,
+        IsClicked:false,
+        Id:"4",
+        Checked:false,
+        Children:[{
+          Name:"salt-1",
+          Id:"12",
+          Status:true,
+          IsClicked:false,
+          Checked:false,
         }],
        }
      ]
   },
   {
-    "name":"vegetables",
-    "status":true,
-    "id":5,
-    "checked":false,
-    "isClicked":false,
-    "children":
+    Name:"Master settings",
+    Status:true,
+    Id:"5",
+    Checked:false,
+    IsClicked:false,
+    Children:
      [
       {
-       "name":"alu",
-       "status":true,
-       "id":6,
-       "checked":false,
-       "isClicked":false,
-       "children":[{
-        "name":"alu-1",
-        "id":11,
-        "status":true,
-        "isClicked":false,
-        "checked":false,
+       Name:"alu",
+       Status:true,
+       Id:"6",
+       Checked:false,
+       IsClicked:false,
+       Children:[{
+        Name:"alu-1",
+        Id:"11",
+        Status:true,
+        IsClicked:false,
+        Checked:false,
        }],
       },
       {
-        "name":"potol",
-        "status":true,
-        "id":7,
-        "checked":false,
-        "isClicked":false,
-        "children":[{
-          "name":"potol-1",
-          "id":9,
-          "status":true,
-          "isClicked":false,
-          "checked":false,
+        Name:"potol",
+        Status:true,
+        Id:"7",
+        Checked:false,
+        IsClicked:false,
+        Children:[{
+          Name:"potol-1",
+          Id:"9",
+          Status:true,
+          IsClicked:false,
+          Checked:false,
         }],
        },
        {
-        "name":"lalsak",
-        "status":true,
-        "isClicked":false,
-        "id":8,
-        "checked":false,
-        "children":[{
-          "name":"lalsak 1",
-          "id":10,
-          "status":true,
-          "isClicked":false,
-          "checked":false
+        Name:"lalsak",
+        Status:true,
+        IsClicked:false,
+        Id:"8",
+        Checked:false,
+        Children:[{
+          Name:"lalsak 1",
+          Id:"10",
+          Status:true,
+          IsClicked:false,
+          Checked:false
         }],
        }
      ]
@@ -118,17 +144,17 @@ export class RolePermissionComponent implements OnInit {
     debugger
   }
   showCategory(id:number){
-   var position= this.tree.findIndex(fea=>fea.id==id);
-   if(this.tree[position].isClicked){
-    this.tree[position].isClicked=false;
-    this.tree[position].children.forEach((a,b,array)=>{
-      a.status=true
+   var position= this.tree.findIndex(fea=>fea.Id==id.toString());
+   if(this.tree[position].IsClicked){
+    this.tree[position].IsClicked=false;
+    this.tree[position].Children.forEach((a,b,array)=>{
+      a.Status=true
     })
    }
    else{
-    this.tree[position].isClicked=true;
-    this.tree[position].children.forEach((a,b,array)=>{
-      a.status=false
+    this.tree[position].IsClicked=true;
+    this.tree[position].Children.forEach((a,b,array)=>{
+      a.Status=false
     })
    }
    
@@ -137,20 +163,20 @@ export class RolePermissionComponent implements OnInit {
     this.isFound=false;
       this.tree.forEach((subcategory,index,array)=>{
         if(!this.isFound){
-          var position= subcategory.children.findIndex(fea=>fea.id==id);
+          var position= subcategory.Children.findIndex(fea=>fea.Id==id.toString());
           if(position!=-1){
             this.isFound=true;
-            if(subcategory.children[position].isClicked){
-              subcategory.children[position].isClicked=false;
-              for(var i=0;i<subcategory.children[position].children.length;i++){
-                subcategory.children[position].children[i].status=true;
+            if(subcategory.Children[position].IsClicked){
+              subcategory.Children[position].IsClicked=false;
+              for(var i=0;i<subcategory.Children[position].Children.length;i++){
+                subcategory.Children[position].Children[i].Status=true;
               }
               
              }
              else{
-              subcategory.children[position].isClicked=true;
-              for(var i=0;i<subcategory.children[position].children.length;i++){
-                subcategory.children[position].children[i].status=false;
+              subcategory.Children[position].IsClicked=true;
+              for(var i=0;i<subcategory.Children[position].Children.length;i++){
+                subcategory.Children[position].Children[i].Status=false;
               }
              }
           }
@@ -159,6 +185,31 @@ export class RolePermissionComponent implements OnInit {
         
       })
    
+  }
+  showSubItem(id:number){
+    this.isFound=false;
+      this.tree.forEach((subcategory,index,array)=>{
+        subcategory.Children.forEach((treeitem,index,array)=>{
+          if(!this.isFound){
+            var position= treeitem.Children.findIndex(fea=>fea.Id==id.toString());
+            if(position!=-1){
+              this.isFound=true;
+              if(treeitem.Children[position].IsClicked){
+                treeitem.Children[position].IsClicked=false;
+                for(var i=0;i<treeitem.Children[position].Children.length;i++){
+                  treeitem.Children[position].Children[i].Status=true;
+                }               
+               }
+               else{
+                treeitem.Children[position].IsClicked=true;
+                for(var i=0;i<treeitem.Children[position].Children.length;i++){
+                  treeitem.Children[position].Children[i].Status=false;
+                }
+               }
+            }
+          }
+        })
+      }) 
   }
   showItem(id:number){
 

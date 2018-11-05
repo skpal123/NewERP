@@ -3,19 +3,25 @@
 </p>
 <div class="tree">
   <ul *ngFor="let ca of tree">
-      <li [class.pointer]="ca.children">
-        <span (click)="showCategory(ca.id)" Class="glyphicon glyphicon-play"></span><input type="checkbox" [(ngModel)]="ca.checked">
-        <span (click)="selectedNode(ca)">{{ca.name}}</span>
-        <ul *ngFor="let subca of ca.children">
-           <li [class.pointer]="subca.children" *ngIf="subca.status">
-              <span Class="glyphicon glyphicon-play" (click)="showSubCategory(subca.id)"></span><input type="checkbox" [(ngModel)]="subca.checked">
-              <span (click)="selectedNode(subca)" >{{subca.name}}</span>
-              <ul *ngFor="let item of subca.children">
-                  <li (click)="showItem(item.id)" *ngIf="item.status">
-                     <input type="checkbox" [(ngModel)]="item.checked">
-                     <span (click)="selectedNode(item)">{{item.name}}</span>
+      <li [class.pointer]="ca.Children">
+        <span (click)="showCategory(ca.Id)" Class="glyphicon glyphicon-play"></span><input type="checkbox" [(ngModel)]="ca.Checked">
+        <span (click)="selectedNode(ca)">{{ca.Name}}</span>
+        <ul *ngFor="let subca of ca.Children">
+           <li [class.pointer]="subca.Children" *ngIf="subca.Status">
+              <span Class="glyphicon glyphicon-play" (click)="showSubCategory(subca.Id)"></span><input type="checkbox" [(ngModel)]="subca.Checked">
+              <span (click)="selectedNode(subca)" >{{subca.Name}}</span>
+              <ul *ngFor="let item of subca.Children">
+                  <li (click)="showItem(item.Id)" *ngIf="item.Status">
+                    <span (click)="showSubItem(item.Id)" Class="glyphicon glyphicon-play"></span><input type="checkbox" [(ngModel)]="item.Checked">
+                     <span (click)="selectedNode(item)">{{item.Name}}</span>
+                     <ul *ngFor="let subitem of item.Children">
+                      <li (click)="showSubItem(subitem.Id)" *ngIf="subitem.Status">
+                         <input type="checkbox" [(ngModel)]="subitem.Checked">
+                         <span (click)="selectedNode(subitem)">{{subitem.Name}}</span>
+                      </li>
+                  </ul>
                   </li>
-               </ul>
+              </ul>
            </li>
         </ul>
       </li>
