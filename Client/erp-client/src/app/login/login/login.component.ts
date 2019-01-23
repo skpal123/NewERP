@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   login(){
     this._loginService.login(this.Username,this.Password,this.NewPassword,this.IpAddress).subscribe(response=>{
       var loggedData=response.json();
+      console.log(JSON.stringify( response.json()))
       sessionStorage.setItem('loggedData',JSON.stringify( response.json()));
       this._router.navigate(['login/postlogin']);  
     },error=>{

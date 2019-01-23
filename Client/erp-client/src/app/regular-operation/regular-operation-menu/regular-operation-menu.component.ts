@@ -26,7 +26,7 @@ export class RegularOperationMenuComponent implements OnInit {
      var id= param.get("id");
      if(id==null){
       this.ModuleSeqId=Number(id);
-     this.menus=this.modules[2].Menus
+     this.menus=this.modules[0].Menus
     }
     else{
      let index=this.modules.findIndex((m,index,array)=>m.SequenceId==Number(id))
@@ -37,7 +37,7 @@ export class RegularOperationMenuComponent implements OnInit {
     })
   }
   getMenusByModule(moduleSeqId:string){
-    this._postLoginService.getMenus(moduleSeqId).subscribe(response=>{
+    this._postLoginService.getMenusSubMenus().subscribe(response=>{
       this.menus=response.json();
       this.menuAlreadyLoad=true;
     },error=>{

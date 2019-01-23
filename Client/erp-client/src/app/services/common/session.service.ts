@@ -32,11 +32,12 @@ export class SessionService {
     var users=this.UserSession?this.UserSession.UserInfo:null;
     this.Userlevel=users?users.UserLevel:null;
     this.User_level=users?users.UserLevelId:null;
-    this.SessionId=sessionStorage.getItem('SessionId');
+    this.SessionId=this.UserSession.SessionId;
     this.BranchCurrentDate=new Date(sessionStorage.getItem('currentDate'));
     this.SelectedBranchId=sessionStorage.getItem('selectedBranchId');
     this.Modules=this.UserSession.Modules;
-    this.Menus=this.UserSession.Menus;
+    this.Menus=this.UserSession.Menus
+    this.User_Id=users?users.Id:null
     this.SubMenus=this.UserSession.SubMenus;
    }
   
