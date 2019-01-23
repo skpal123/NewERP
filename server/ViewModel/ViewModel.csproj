@@ -44,6 +44,7 @@
     <Compile Include="Model\Login.cs" />
     <Compile Include="Model\MenuView.cs" />
     <Compile Include="Model\ModuleView.cs" />
+    <Compile Include="Model\PermissionTree.cs" />
     <Compile Include="Model\PermissionView.cs" />
     <Compile Include="Model\RoleInfo.cs" />
     <Compile Include="Model\SubMenuView.cs" />
